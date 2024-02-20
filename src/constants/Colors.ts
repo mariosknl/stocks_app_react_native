@@ -8,6 +8,9 @@ export default {
     tint: tintColorLight,
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorLight,
+    graph: "#017560",
+    gradientLight: "#0175605D",
+    gradientDark: "#7476df00",
   },
   dark: {
     text: "#fff",
