@@ -27,6 +27,15 @@ type Quote {
   symbol: String
   timestamp: Int
   volume: Date
+
+  favorite: [Favorites]
+    @materializer(
+      query: "favoritesByUser_idAndSymbol"
+      arguments: [
+        { name: "symbol", field: "symbol" }
+        { name: "user_id", field: "symbol" }
+      ]
+    )
 }
 
 type Quotes {

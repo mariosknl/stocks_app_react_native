@@ -4,6 +4,7 @@ import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { MonoText } from "./StyledText";
 import { Link } from "expo-router";
+import { gql, useMutation } from "@apollo/client";
 
 type Stock = {
   name: string;
@@ -16,15 +17,37 @@ type StockListItem = {
   stock: Stock;
 };
 
+const mutation = gql`
+  mutation MyMutation($symbol: String!, $user_id: String!) {
+    insertFavorites(symbol: $symbol, user_id: $user_id) {
+      user_id
+      symbol
+      id
+    }
+  }
+`;
+
 const StockListItem = ({ stock }: StockListItem) => {
+  const [runMutation] = useMutation(mutation, {
+    variables: { user_id: "vadim", symbol: stock.symbol },
+  });
   const change = Number.parseFloat(stock.percent_change);
+
+  const onFavoritesPressed = () => runMutation();
+
   return (
     <Link href={`/${stock.symbol}`} asChild>
       <Pressable style={styles.container}>
         {/* Left container */}
         <View style={{ flex: 1, gap: 5 }}>
           <Text style={styles.symbol}>
-            {stock.symbol} <AntDesign name="staro" size={16} color="gray" />
+            {stock.symbol}{" "}
+            <AntDesign
+              onPress={onFavoritesPressed}
+              name="staro"
+              size={16}
+              color="gray"
+            />
           </Text>
           <Text style={{ color: "gray" }}>{stock.name}</Text>
         </View>
