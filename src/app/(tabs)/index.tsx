@@ -2,7 +2,6 @@ import StockListItem from "@/src/components/StockListItem";
 import { Text, View } from "@/src/components/Themed";
 import { Stack } from "expo-router";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
-
 import { gql, useQuery } from "@apollo/client";
 
 const query = gql`
